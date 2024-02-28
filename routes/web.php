@@ -25,14 +25,30 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/material_quantities', function () {
+    return Inertia::render('MaterialQuantities');
+})->middleware(['auth', 'verified'])->name('material_quantities');
+
+Route::get('/sustainability_impact', function () {
+    return Inertia::render('SustainabilityImpact');
+})->middleware(['auth', 'verified'])->name('sustainability_impact');
+
+Route::get('/project_metrics', function () {
+    return Inertia::render('ProjectMetrics');
+})->middleware(['auth', 'verified'])->name('project_metrics');
+
+Route::get('/users_rights', function () {
+    return Inertia::render('UsersAndRights');
+})->middleware(['auth', 'verified'])->name('users_rights');
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('/images/{filename}', 'ImageController@show');
 
 require __DIR__.'/auth.php';
